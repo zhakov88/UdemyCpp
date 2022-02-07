@@ -4,7 +4,6 @@
 int array_maximum(int *input_array, unsigned int length)
 {
     int current_max_value = 0;
-
     for (int i = 0; i < length; i++)
     {
         if (i == 0)
@@ -16,7 +15,6 @@ int array_maximum(int *input_array, unsigned int length)
             current_max_value = input_array[i];
         }
     }
-
     return current_max_value;
 }
 
@@ -26,6 +24,12 @@ int main()
 
     // Heap Allocation
     int *p = new int[array_size];
+
+    // Size of the pointer  itself in Bytes
+    std::cout << sizeof(p) << std::endl;
+
+    // Size of the first array element that the pointer points to
+    std::cout << sizeof(*p) << std::endl;
 
     for (int i = 0; i < array_size; i++)
     {

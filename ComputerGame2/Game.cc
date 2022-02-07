@@ -1,9 +1,7 @@
 #include <iostream>
-
 constexpr unsigned int LEN_X = 10;
 constexpr unsigned int START = 0;
 constexpr unsigned int GOAL = LEN_X - 1;
-
 constexpr char LEFT = 'a';
 constexpr char RIGHT = 'd';
 
@@ -15,11 +13,9 @@ void print_game_state(unsigned int player)
     {
         game_state[i] = '.';
     }
-
     game_state[START] = '|';
     game_state[GOAL] = '|';
     game_state[player] = 'P';
-
     for (unsigned int i = 0; i < LEN_X; i++)
     {
         std::cout << game_state[i];
@@ -58,21 +54,18 @@ unsigned int execute_move(unsigned int player, char move)
     {
         std::cout << "Unrecognized move!" << std::endl;
     }
-
     return player;
 }
 
 bool is_finished(unsigned int player)
 {
     bool finished = false;
-
     if (player == GOAL)
     {
         finished = true;
 
         std::cout << "You won the game!" << std::endl;
     }
-
     return finished;
 }
 

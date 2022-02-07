@@ -12,19 +12,17 @@ void print_double_pointer(double *&p)
 
 int main()
 {
-    int a = 1337; // 0xffffcc3c
-    double b = -13.37;
-
-    int *c = &a; // 0xffffcc20
-    print_int_pointer(c);
+    int a = 1337;
+    float b = -13.37;
+    int *c = &a;
 
     *c -= 10;
     print_int_pointer(c);
 
-    int *d = &a; // 0xffffcc28
-    print_int_pointer(d);
+    int *d = &a;
+    print_int_pointer(c);
 
-    *c += 10;
+    *c -= 10;
     print_int_pointer(d);
 
     *c = b;

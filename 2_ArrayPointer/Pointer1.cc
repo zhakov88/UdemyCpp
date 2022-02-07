@@ -10,8 +10,8 @@ int main()
     std::cout << "Address of number: " << &number << std::endl; // 3c
 
     int *p = &number;
-    std::cout << "Value of p: " << p << std::endl;                                   // 3c
-    std::cout << "Value of the memory adress that p points to: " << *p << std::endl; // 3c
+    std::cout << "Value of p: " << p << std::endl;
+    std::cout << "Address of the memory adress p pointer to p: " << *p << std::endl; // 3c
 
     return 0;
 }
