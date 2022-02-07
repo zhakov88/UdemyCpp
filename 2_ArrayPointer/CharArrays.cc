@@ -2,15 +2,13 @@
 
 int main()
 {
-    char fist_name[] = {'J', 'a', 'n', '\0'};
+    char first_name[] = {'A', 'r', 't', 'e', 'm', '\0'};
+    std::cout << first_name << std::endl;
 
-    std::cout << fist_name << std::endl;
-
-    char last_name[] = "Schaffranek";
-
+    char last_name[] = "Zhakov";
     std::cout << last_name << std::endl;
 
-    for (int i = 0; i < 11; i++)
+    for (int i = 0; i < 6; i++)
     {
         std::cout << "Last Name[i]: " << last_name[i] << std::endl;
     }

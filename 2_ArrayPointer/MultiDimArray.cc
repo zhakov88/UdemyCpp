@@ -1,9 +1,13 @@
 #include <iostream>
 
+using std::cin;
+using std::cout;
+using std::endl;
+
 int main()
 {
     // 1d-Array (Vector)
-    int my_array1[3] = {1, 2, 3};
+    int my_array[3] = {1, 2, 3};
 
     // 2d-Array (Matrix)
     // Number of rows = 3
@@ -14,9 +18,8 @@ int main()
     {
         for (int j = 0; j < 2; j++)
         {
-            std::cout << "i = " << i << ", j = " << j << " value = " << my_matrix[i][j] << std::endl;
+            cout << "i = " << i << ", j = " << j << ", value = " << my_matrix[i][j] << endl;
         }
     }
-
     return 0;
 }
