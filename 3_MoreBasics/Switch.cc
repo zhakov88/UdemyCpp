@@ -13,69 +13,57 @@ enum PermissionLevel
     UNKNOWN = 5
 };
 
-void greet_permission_level_if(const PermissionLevel level)
+struct UserData
 {
-    if (level == PermissionLevel::STUDENT)
-    {
-        std::cout << "Hello STUDENT" << std::endl;
-    }
-    else if (level == PermissionLevel::TUTOR)
-    {
-        std::cout << "Hello TUTOR" << std::endl;
-    }
-    else if (level == PermissionLevel::INSTRUCTOR)
-    {
-        std::cout << "Hello INSTRUCTOR" << std::endl;
-    }
-    else if (level == PermissionLevel::ADMIN)
-    {
-        std::cout << "Hello ADMIN" << std::endl;
-    }
-    else
-    {
-        std::cout << "UNKNOWN! Error!" << std::endl;
-    }
-}
+    char *name;
+    unsigned int id;
+    PermissionLevel permission_level;
+};
 
-void greet_permission_level_switch(const PermissionLevel level)
+
+void greet_permission_level(const PermissionLevel level)
 {
     switch (level)
     {
-        case PermissionLevel::STUDENT:
-        {
-            std::cout << "Hello STUDENT" << std::endl;
-            break;
-        }
-        case PermissionLevel::TUTOR:
-        {
-            std::cout << "Hello TUTOR" << std::endl;
-            break;
-        }
-        case PermissionLevel::INSTRUCTOR:
-        {
-            std::cout << "Hello INSTRUCTOR" << std::endl;
-            break;
-        }
-        case PermissionLevel::ADMIN:
-        {
-            std::cout << "Hello ADMIN" << std::endl;
-            break;
-        }
-        default:
-        {
-            std::cout << "UNKNOWN! Error!" << std::endl;
-            break;
-        }
+    case PermissionLevel::STUDENT:
+    {
+        std::cout << "Hello STUDENT" << std::endl;
+        break;
+    }
+    case PermissionLevel::TUTOR:
+    {
+        std::cout << "Hello TUTOR" << std::endl;
+        break;
+    }
+    case PermissionLevel::INSTRUCTOR:
+    {
+        std::cout << "Hello INSTRUCTOR" << std::endl;
+        break;
+    }
+    case PermissionLevel::ADMIN:
+    {
+        std::cout << "Hello ADMIN" << std::endl;
+        break;
+    }
+    default:
+    {
+        std::cout << "UNKNOWN! Error!" << std::endl;
+        break;
+    }
     }
 }
 
 int main()
 {
     PermissionLevel permission_level_jan = PermissionLevel::INSTRUCTOR;
-    greet_permission_level_switch(permission_level_jan);
-
     PermissionLevel permission_level_peter = PermissionLevel::STUDENT;
-    greet_permission_level_if(permission_level_peter);
 
+    UserData user_jan = {"Jan", 675231754, permission_level_jan};
+    greet_permission_level(user_jan.permission_level);
+    UserData user_peter;
+    user_peter.name = "Peter";
+    user_peter.id = 21377896;
+    user_peter.permission_level = permission_level_peter;
+    greet_permission_level(user_peter.permission_level);
     return 0;
 }

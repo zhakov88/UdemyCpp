@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <numeric>
+#include <vector>
 
 void print_vector(const std::vector<double> &my_vector)
 {
@@ -20,6 +20,7 @@ void print_vector_info(const std::vector<double> &my_vector)
 
 int main()
 {
+
     std::vector<double> my_vector(10, 5);
     std::iota(my_vector.begin(), my_vector.end(), 0);
 

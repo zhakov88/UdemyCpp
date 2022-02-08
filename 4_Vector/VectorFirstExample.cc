@@ -9,16 +9,10 @@ int main()
     {
         std::cout << my_vector[i] << std::endl;
     }
-    std::cout << std::endl;
 
+    std::cout << "###" << std::endl;
     my_vector[0] = 11;
-    my_vector[1] = -42;
-
-    for (std::size_t i = 0; i < my_vector.size(); i++)
-    {
-        std::cout << my_vector[i] << std::endl;
-    }
-    std::cout << std::endl;
+    my_vector[1] = -33;
 
     my_vector.push_back(55);
 
@@ -26,16 +20,16 @@ int main()
     {
         std::cout << my_vector[i] << std::endl;
     }
-    std::cout << std::endl;
 
-    my_vector.pop_back();
+    std::cout << "###" << std::endl;
+
     my_vector.pop_back();
 
     for (std::size_t i = 0; i < my_vector.size(); i++)
     {
         std::cout << my_vector[i] << std::endl;
     }
-    std::cout << std::endl;
+
 
     return 0;
 }

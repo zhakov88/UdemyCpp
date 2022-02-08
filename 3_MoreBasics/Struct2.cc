@@ -17,64 +17,63 @@ struct Vehicle
 void print_vehicle_data(Vehicle &vehicle)
 {
     std::cout << "Vehicle ID: " << vehicle.id << std::endl;
-    std::cout << "Vehicle Velocity [kph]: " << vehicle.velocity << std::endl;
-
+    std::cout << "Vehicle Velocity [km/h]: " << vehicle.velocity << std::endl;
     switch (vehicle.lane)
     {
-        case Lane::CENTER_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Center Lane" << std::endl;
-            break;
-        }
-        case Lane::RIGHT_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Right Lane" << std::endl;
-            break;
-        }
-        case Lane::LEFT_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Left Lane" << std::endl;
-            break;
-        }
-        default:
-        {
-            break;
-        }
+    case Lane::CENTER_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Center Lane" << std::endl;
+        break;
+    }
+    case Lane::RIGHT_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Right Lane" << std::endl;
+        break;
+    }
+    case Lane::LEFT_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Left Lane" << std::endl;
+        break;
+    }
+    default:
+    {
+        break;
+    }
     }
 }
 
 void print_vehicle_data_pointer(Vehicle *vehicle)
 {
     std::cout << "Vehicle ID: " << vehicle->id << std::endl;
-    std::cout << "Vehicle Velocity [kph]: " << vehicle->velocity << std::endl;
-
+    std::cout << "Vehicle Velocity [km/h]: " << vehicle->velocity << std::endl;
     switch (vehicle->lane)
     {
-        case Lane::CENTER_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Center Lane" << std::endl;
-            break;
-        }
-        case Lane::RIGHT_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Right Lane" << std::endl;
-            break;
-        }
-        case Lane::LEFT_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Left Lane" << std::endl;
-            break;
-        }
-        default:
-        {
-            break;
-        }
+    case Lane::CENTER_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Center Lane" << std::endl;
+        break;
+    }
+    case Lane::RIGHT_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Right Lane" << std::endl;
+        break;
+    }
+    case Lane::LEFT_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Left Lane" << std::endl;
+        break;
+    }
+    default:
+    {
+        break;
+    }
     }
 }
 
 int main()
 {
     Vehicle v1 = {1, 100.0f, Lane::CENTER_LANE};
+
     print_vehicle_data(v1);
 
     print_vehicle_data_pointer(&v1);

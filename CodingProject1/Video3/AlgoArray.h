@@ -25,3 +25,8 @@ double mean(const DynamicArray &dynamic_array);
  * @return double
  */
 double median(const DynamicArray &dynamic_array);
+
+
+double variance(const DynamicArray &dynamic_array);
+
+double stddev(const DynamicArray &dynamic_array);

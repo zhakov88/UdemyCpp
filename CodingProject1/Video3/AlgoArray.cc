@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <math.h>
 
 #include "AlgoArray.h"
 #include "DynArray.h"
@@ -38,4 +39,25 @@ double median(const DynamicArray &dynamic_array)
     }
 
     return median_value;
+}
+
+double variance(const DynamicArray &dynamic_array)
+{
+    double mean_value = mean(dynamic_array);
+    double variance_value = 0.0;
+    double x_probability = 1.0 / dynamic_array.m_length;
+
+    for (std::size_t i = 0; i < dynamic_array.m_length; i++)
+    {
+        double x_i = dynamic_array.m_data[i];
+        variance_value += pow(x_i - mean_value, 2.0) * x_probability;
+    }
+    return variance_value;
+}
+
+double stddev(const DynamicArray &dynamic_array)
+{
+    double variance_value = variance(dynamic_array);
+    double stddev_value = sqrt(variance_value);
+    return stddev_value;
 }

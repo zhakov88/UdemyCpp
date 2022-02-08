@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 int max(const int &a, const int &b)
 {
     if (a < b)
@@ -23,6 +24,7 @@ double max(const double &a, const double &b)
         return a;
     }
 }
+
 
 int main()
 {

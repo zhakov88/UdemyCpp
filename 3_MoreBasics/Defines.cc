@@ -24,25 +24,25 @@ void print_vehicle_data(const Vehicle &vehicle)
 
     switch (vehicle.lane)
     {
-        case Lane::CENTER_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Center Lane" << std::endl;
-            break;
-        }
-        case Lane::RIGHT_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Right Lane" << std::endl;
-            break;
-        }
-        case Lane::LEFT_LANE:
-        {
-            std::cout << "Vehicle Lane Association: Left Lane" << std::endl;
-            break;
-        }
-        default:
-        {
-            break;
-        }
+    case Lane::CENTER_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Center Lane" << std::endl;
+        break;
+    }
+    case Lane::RIGHT_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Right Lane" << std::endl;
+        break;
+    }
+    case Lane::LEFT_LANE:
+    {
+        std::cout << "Vehicle Lane Association: Left Lane" << std::endl;
+        break;
+    }
+    default:
+    {
+        break;
+    }
     }
 }
 
@@ -52,7 +52,7 @@ int main()
     Vehicle v2 = {2, 90.0f, Lane::RIGHT_LANE};
     Vehicle v3 = {DEFAULT_VEHICLE_ID, 130.0f, Lane::LEFT_LANE};
 
-    Vehicle vehicles_in_scene[NUM_VEHICLES] = {v1, v2, v3};
+    Vehicle vehicles_in_scene[3] = {v1, v2, v3};
 
     for (int i = 0; i < NUM_VEHICLES; i++)
     {

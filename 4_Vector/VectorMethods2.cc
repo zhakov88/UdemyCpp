@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <numeric>
+#include <vector>
 
 void print_vector(const std::vector<int> &my_vector)
 {
@@ -22,7 +22,6 @@ int main()
 {
     std::vector<int> my_vector(10, 5);
     std::iota(my_vector.begin(), my_vector.end(), 0);
-
     print_vector(my_vector);
     print_vector_info(my_vector);
 
@@ -35,7 +34,7 @@ int main()
     std::cout << last << " " << last2 << std::endl;
 
     int *array = my_vector.data();
-    std::cout << *array << std::endl;
+    std::cout << array[0] << std::endl;
 
     std::vector<int>::iterator begin = my_vector.begin();
     std::vector<int>::iterator end = my_vector.end();
@@ -45,9 +44,6 @@ int main()
 
     begin++;
     end--;
-
-    std::cout << *begin << std::endl;
-    std::cout << *end << std::endl;
 
     return 0;
 }
