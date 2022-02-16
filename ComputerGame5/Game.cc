@@ -4,8 +4,8 @@
 #include "Game.h"
 
 Game::Game()
-    : m_player(Position(0, 0)), m_goal(random_position(2, LEN_X - 1, 2, LEN_Y - 1)), m_game_state(GameState()),
-      m_obstacles(Obstacles(NUM_OBSTACLES, Position(0, 0)))
+    : m_player(Position(0, 0)), m_goal(random_position(2, LEN_X - 1, 2, LEN_Y - 1)),
+      m_game_state(GameState()), m_obstacles(Obstacles(NUM_OBSTACLES, Position(0, 0)))
 {
 }
 
@@ -13,26 +13,26 @@ ConsoleInput Game::map_user_input(char user_input)
 {
     switch (user_input)
     {
-        case 'a':
-        {
-            return ConsoleInput::LEFT;
-        }
-        case 'd':
-        {
-            return ConsoleInput::RIGHT;
-        }
-        case 'w':
-        {
-            return ConsoleInput::UP;
-        }
-        case 's':
-        {
-            return ConsoleInput::DOWN;
-        }
-        default:
-        {
-            return ConsoleInput::INVALID;
-        }
+    case 'a':
+    {
+        return ConsoleInput::LEFT;
+    }
+    case 'd':
+    {
+        return ConsoleInput::RIGHT;
+    }
+    case 'w':
+    {
+        return ConsoleInput::UP;
+    }
+    case 's':
+    {
+        return ConsoleInput::DOWN;
+    }
+    default:
+    {
+        return ConsoleInput::INVALID;
+    }
     }
 }
 
@@ -67,73 +67,73 @@ void Game::move_player(ConsoleInput move)
 {
     switch (move)
     {
-        case ConsoleInput::LEFT:
+    case ConsoleInput::LEFT:
+    {
+        if (m_player.second > START.second)
         {
-            if (m_player.second > START.second)
-            {
-                m_player.second--;
+            m_player.second--;
 
-                std::cout << "You moved to the left!" << std::endl;
-            }
-            else
-            {
-                std::cout << "You bounced!" << std::endl;
-            }
-
-            break;
+            std::cout << "You moved to the left!" << std::endl;
         }
-        case ConsoleInput::RIGHT:
+        else
         {
-            if (m_player.second < LEN_Y)
-            {
-                m_player.second++;
-
-                std::cout << "You moved to the right!" << std::endl;
-            }
-            else
-            {
-                std::cout << "You bounced!" << std::endl;
-            }
-
-            break;
+            std::cout << "You bounced!" << std::endl;
         }
-        case ConsoleInput::UP:
+
+        break;
+    }
+    case ConsoleInput::RIGHT:
+    {
+        if (m_player.second < LEN_Y)
         {
-            if (m_player.first > START.first)
-            {
-                m_player.first--;
+            m_player.second++;
 
-                std::cout << "You moved upwards!" << std::endl;
-            }
-            else
-            {
-                std::cout << "You bounced!" << std::endl;
-            }
-
-            break;
+            std::cout << "You moved to the right!" << std::endl;
         }
-        case ConsoleInput::DOWN:
+        else
         {
-            if (m_player.first < LEN_X)
-            {
-                m_player.first++;
-
-                std::cout << "You moved downwards!" << std::endl;
-            }
-            else
-            {
-                std::cout << "You bounced!" << std::endl;
-            }
-
-            break;
+            std::cout << "You bounced!" << std::endl;
         }
-        case ConsoleInput::INVALID:
-        default:
+
+        break;
+    }
+    case ConsoleInput::UP:
+    {
+        if (m_player.first > START.first)
         {
-            std::cout << "Unrecognized move!" << std::endl;
+            m_player.first--;
 
-            break;
+            std::cout << "You moved upwards!" << std::endl;
         }
+        else
+        {
+            std::cout << "You bounced!" << std::endl;
+        }
+
+        break;
+    }
+    case ConsoleInput::DOWN:
+    {
+        if (m_player.first < LEN_X)
+        {
+            m_player.first++;
+
+            std::cout << "You moved downwards!" << std::endl;
+        }
+        else
+        {
+            std::cout << "You bounced!" << std::endl;
+        }
+
+        break;
+    }
+    case ConsoleInput::INVALID:
+    default:
+    {
+        std::cout << "Unrecognized move!" << std::endl;
+
+        break;
+    }
     }
 }
 
@@ -144,7 +144,8 @@ void Game::move_obstacles()
         Position offset = random_position(-1, 1, -1, 1);
 
         if (obs.first + offset.first < LEN_X && obs.second + offset.second < LEN_Y &&
-            obs.first + offset.first != m_player.first && obs.second + offset.second != m_player.second &&
+            obs.first + offset.first != m_player.first &&
+            obs.second + offset.second != m_player.second &&
             obs.first + offset.first != m_goal.first && obs.second + offset.second != m_goal.second)
         {
             obs.first += offset.first;

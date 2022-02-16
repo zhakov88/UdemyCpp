@@ -14,7 +14,7 @@ std::string read_text(const std::string &path)
     {
         while (std::getline(iffile, str))
         {
-            text += str + "\n";
+            text += str + "/n";
         }
     }
 
@@ -37,12 +37,11 @@ void write_text(const std::string &path, const std::string &text)
 
 int main()
 {
-    /* eins\nzwei\ndrei */
     std::string text = read_text("Text.txt");
     std::cout << text << std::endl;
 
-    std::string search_str = "drei";
-    auto idx = text.find(search_str);
+    std::string serch_str = "drei";
+    auto idx = text.find(serch_str);
     std::cout << idx << std::endl;
 
     if (idx != std::string::npos)
@@ -51,29 +50,26 @@ int main()
     }
     else
     {
-        std::cout << "Not Found!" << std::endl;
+        std::cout << "Not found!" << std::endl;
     }
 
     std::string text2 = "abab";
-    std::string search_str2 = "ab";
 
-    auto idx2 = text2.find(search_str2);
-    std::cout << "find: " << idx2 << std::endl;
+    std::string serch_str2 = "ab";
+    auto idx2 = text2.rfind(serch_str2);
+    std::cout << "rfind: " << idx2 << std::endl;
 
-    auto idx3 = text2.rfind(search_str2);
-    std::cout << "rfind: " << idx3 << std::endl;
+    auto idx3 = text2.find_first_not_of(serch_str2);
+    std::cout << "find_first_not_of: " << idx3 << std::endl;
 
-    auto idx4 = text2.find_first_not_of(search_str2);
-    std::cout << "find_first_not_of: " << idx4 << std::endl;
+    auto idx4 = text2.find_last_not_of(serch_str2);
+    std::cout << "find_last_not_of: " << idx4 << std::endl;
 
-    auto idx5 = text2.find_last_not_of(search_str2);
-    std::cout << "find_last_not_of: " << idx5 << std::endl;
+    auto idx5 = text2.find_first_of(serch_str2);
+    std::cout << "find_first_of: " << idx5 << std::endl;
 
-    auto idx6 = text2.find_first_of(search_str2);
-    std::cout << "find_first_of: " << idx6 << std::endl;
-
-    auto idx7 = text2.find_last_of(search_str2);
-    std::cout << "find_last_of: " << idx7 << std::endl;
+    auto idx6 = text2.find_last_of(serch_str2);
+    std::cout << "find_last_of: " << idx6 << std::endl;
 
     return 0;
 }

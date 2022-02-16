@@ -15,10 +15,10 @@ int main()
     std::bernoulli_distribution dist(0.5);
 
     BinaryArray target(20, false);
-    // ...
+    std::generate(target.begin(), target.end(), [&] { return dist(gen); });
 
     BinaryArray input(target.begin(), target.end());
-    // ...
+    std::shuffle(target.begin(), target.end(), std::default_random_engine(42));
 
     for (std::size_t i = 0; i < target.size(); ++i)
     {
@@ -35,7 +35,8 @@ int main()
     auto start = std::chrono::high_resolution_clock::now();
     BinaryArray result_exercise2 = shuffle_till_equal(target, input);
     auto end = std::chrono::high_resolution_clock::now();
-    auto elapsed_milliseconds = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+    auto elapsed_milliseconds =
+        std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
     std::cout << std::endl << "Time for exercise 2 in ms: " << elapsed_milliseconds;
     bool is_equal2 = std::equal(result_exercise2.begin(), result_exercise2.end(), target.begin());
     std::cout << std::endl << "Vectors are equal: " << is_equal2 << std::endl;
@@ -45,7 +46,8 @@ int main()
     start = std::chrono::high_resolution_clock::now();
     BinaryArray result_exercise3 = smart_shuffle_till_equal(target, input);
     end = std::chrono::high_resolution_clock::now();
-    elapsed_milliseconds = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+    elapsed_milliseconds =
+        std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
     std::cout << std::endl << "Time for exercise 3 in ms: " << elapsed_milliseconds;
     bool is_equal3 = std::equal(result_exercise3.begin(), result_exercise3.end(), target.begin());
     std::cout << std::endl << "Vectors are equal: " << is_equal3 << std::endl;

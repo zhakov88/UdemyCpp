@@ -6,13 +6,14 @@
 
 void print_vector(const std::vector<int> &vec)
 {
+
     for (const auto &val : vec)
     {
         std::cout << val << std::endl;
     }
-
     std::cout << std::endl;
 }
+
 
 int main()
 {
@@ -21,8 +22,7 @@ int main()
 
     print_vector(my_vector);
 
-    // remove_if, erase
-
+    // remove_if erase
     my_vector.erase(std::remove_if(my_vector.begin(),
                                    my_vector.end(),
                                    [](const int val) {
@@ -35,13 +35,14 @@ int main()
                                            return false;
                                        }
                                    }),
-                    my_vector.end());
+                    my_vector.end()
+
+    );
 
     print_vector(my_vector);
 
-    // remove_if, erase: capture variable
+    // remove_if, erase: capture variabele
     int upper_bound = 3;
-
     my_vector.erase(std::remove_if(my_vector.begin(),
                                    my_vector.end(),
                                    [&upper_bound](const int val) {
@@ -54,9 +55,10 @@ int main()
                                            return false;
                                        }
                                    }),
-                    my_vector.end());
+                    my_vector.end()
+
+    );
 
     print_vector(my_vector);
-
     return 0;
-}
+};

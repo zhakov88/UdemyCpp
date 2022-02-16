@@ -53,9 +53,9 @@
         ""
       ],
       "stopAtEntry": false,
-      "cwd": "c:/Users/Artem/Desktop/UdemyCpp",
+      "cwd": "c:/Users/s5280339/Desktop/UdemyCpp",
       "environment": [],
-      "program": "c:/Users/Artem/Desktop/UdemyCpp/build/Debug/outDebug",
+      "program": "c:/Users/s5280339/Desktop/UdemyCpp/build/Debug/outDebug",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "C:/cygwin64/bin/gdb.exe",

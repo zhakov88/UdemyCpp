@@ -67,6 +67,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
@@ -93,6 +94,7 @@ Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
@@ -117,10 +119,12 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
     }
+
 
     Matrix<T> result(m_rows, m_cols);
 
@@ -143,6 +147,7 @@ Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
@@ -197,7 +202,6 @@ Matrix<T> Matrix<T>::operator/(const T &scalar)
     {
         throw(std::overflow_error("You cannot divide by a scalar value of zero!"));
     }
-
     Matrix<T> result(m_rows, m_cols);
 
     for (std::size_t i = 0; i != m_rows; ++i)
@@ -214,6 +218,11 @@ Matrix<T> Matrix<T>::operator/(const T &scalar)
 template <typename T>
 Matrix<T> &Matrix<T>::operator/=(const T &scalar)
 {
+    if (scalar == 0)
+    {
+        throw(std::overflow_error("You cannot divide by a scalar value of zero!"));
+    }
+
     for (std::size_t i = 0; i != m_rows; ++i)
     {
         std::transform(m_data[i].begin(),
@@ -230,7 +239,7 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &rhs)
 {
     if (m_cols != rhs.m_rows)
     {
-        throw(std::invalid_argument("Number of cols are not equal!"));
+        throw(std::invalid_argument("Number of rows are not equal!"));
     }
 
     Matrix<T> result(m_rows, rhs.m_cols);
@@ -254,7 +263,7 @@ Matrix<T> &Matrix<T>::operator*=(const Matrix<T> &rhs)
 {
     if (m_cols != rhs.m_rows)
     {
-        throw(std::invalid_argument("Number of cols are not equal!"));
+        throw(std::invalid_argument("Number of rows are not equal!"));
     }
 
     *this = (*this) * rhs;

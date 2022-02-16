@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <utility>
 
 template <typename T>
 class DynamicArray
@@ -9,11 +10,15 @@ public:
     // Constructor/Destructor
     DynamicArray();
     DynamicArray(const T &value, const std::size_t length);
-    ~DynamicArray();
+    ~DynamicArray() noexcept;
 
     // Copy-Constructor/Assignment Operator
     DynamicArray(const DynamicArray &other);
     DynamicArray &operator=(const DynamicArray &other);
+
+    // Move-Constructer/Assignment Operator
+    DynamicArray(DynamicArray &&other) noexcept;
+    DynamicArray &operator=(DynamicArray &&other) noexcept;
 
     // Data-manipulation methods
     void push_back(const T &value);
@@ -60,7 +65,7 @@ DynamicArray<T>::DynamicArray(const T &value, const std::size_t length)
  * @brief Destroys a dynamic array object
  */
 template <typename T>
-DynamicArray<T>::~DynamicArray()
+DynamicArray<T>::~DynamicArray() noexcept
 {
     if (m_data != nullptr)
     {
@@ -84,8 +89,8 @@ DynamicArray<T>::DynamicArray(const DynamicArray<T> &other)
         m_data[i] = other.m_data[i];
     }
 
-    std::cout << "Copy constructor - other.m_length = " << other.m_length << " - this.m_length = " << m_length
-              << std::endl;
+    std::cout << "Copy constructor - other.m_length = " << other.m_length
+              << " - this.m_length = " << m_length << std::endl;
 }
 
 /**
@@ -122,9 +127,54 @@ DynamicArray<T> &DynamicArray<T>::operator=(const DynamicArray<T> &other)
         }
     }
 
-    std::cout << "Copy assignment operator - other.m_length = " << other.m_length << " - this.m_length = " << m_length
-              << std::endl;
+    std::cout << "Copy assignment operator - other.m_length = " << other.m_length
+              << " - this.m_length = " << m_length << std::endl;
 
+    return *this;
+}
+/**
+ * @brief Move constructor
+ *
+ * @tparam T
+ * @param other
+ */
+template <typename T>
+DynamicArray<T>::DynamicArray(DynamicArray &&other) noexcept
+    : m_length(std::move(other.m_length)), m_capacity(std::move(other.m_capacity)),
+      m_data(std::move(other.m_data))
+{
+    other.m_length = 0;
+    other.m_capacity = 0;
+    other.m_data = nullptr;
+    std::cout << "Move constructor - other.m_length = " << other.m_length
+              << " - this.m_length = " << m_length << std::endl;
+}
+
+/**
+ * @brief Move assignemnt operator
+ *
+ * @tparam T
+ * @param other
+ * @return
+ */
+
+template <typename T>
+DynamicArray<T> &DynamicArray<T>::operator=(DynamicArray &&other) noexcept
+{
+    if (this != &other)
+    {
+        delete[] m_data;
+
+        m_length = std::move(other.m_length);
+        m_capacity = std::move(other.m_capacity);
+        m_data = std::move(other.m_data);
+
+        other.m_length = 0;
+        other.m_capacity = 0;
+        other.m_data = nullptr;
+    }
+    std::cout << "Move assignment operator- other.m_length = " << other.m_length
+              << " - this.m_length = " << m_length << std::endl;
     return *this;
 }
 

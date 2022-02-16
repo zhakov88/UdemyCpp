@@ -10,6 +10,13 @@ public:
     Matrix &operator+=(const Matrix &rhs);
     Matrix operator-(const Matrix &rhs);
     Matrix &operator-=(const Matrix &rhs);
+    Matrix operator*(const double &scalar);
+    Matrix &operator*=(const double &scalar);
+    Matrix operator/(const double &scalar);
+    Matrix &operator/=(const double &scalar);
+    Matrix operator*(const Matrix &rhs);
+    Matrix &operator*=(const Matrix &rhs);
+
 
     void print_matrix() const;
 

@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <chrono>
 #include <cstdint>
@@ -10,7 +11,14 @@
 
 #include "Timer.h"
 
-constexpr std::uint32_t NUM_THREADS = 2;
+/*
+Serial time:      4.569ms
+2: Own time:      3.336ms
+4: Own time:      3.071ms
+6: Own time:      3.008ms
+8: Own time:      2.975ms
+*/
+constexpr std::uint32_t NUM_THREADS = 8;
 constexpr std::uint32_t NUM_RUNS = 1'000;
 
 template <typename T>
@@ -43,6 +51,53 @@ T serial_sum(std::vector<T> &vec)
     return local_sum;
 }
 
+template <typename It, typename T>
+void sum_slice(It first, It last, T &result)
+{
+    result = std::accumulate(first, last, T{});
+}
+
+template <typename T>
+T parallel_sum(std::vector<T> &vec)
+{
+    T final_sum = 0;
+    std::array<T, NUM_THREADS> local_sums{};
+    std::array<std::thread, NUM_THREADS> threads;
+
+    const auto slice_size = vec.size() / NUM_THREADS;
+    auto prev_last = vec.begin();
+
+    for (std::uint32_t i = 0; i < NUM_THREADS; ++i)
+    {
+        auto first = prev_last;
+        auto last = prev_last + slice_size;
+
+        if (i == (NUM_THREADS - 1))
+        {
+            last = vec.end();
+        }
+
+        threads[i] = std::thread(sum_slice<typename std::vector<T>::iterator, T>,
+                                 first,
+                                 last,
+                                 std::ref(local_sums[i]));
+
+        prev_last = prev_last + slice_size;
+    }
+
+    for (auto &thread : threads)
+    {
+        thread.join();
+    }
+
+    for (const auto local_sum : local_sums)
+    {
+        final_sum += local_sum;
+    }
+
+    return final_sum;
+}
+
 int main()
 {
     std::vector<std::int32_t> my_vector(30'000'000, 0);
@@ -57,6 +112,16 @@ int main()
         time1 += t1.elapsed_time<cpptiming::millisecs, double>();
     }
     std::cout << "Mean Serial: " << time1 / NUM_RUNS << "ms sum: " << sum1 << std::endl;
+
+    auto time3 = 0.0;
+    volatile auto sum3 = 0;
+    for (std::uint32_t i = 0; i < NUM_RUNS; ++i)
+    {
+        cpptiming::Timer t3;
+        sum3 = parallel_sum(my_vector);
+        time3 += t3.elapsed_time<cpptiming::millisecs, double>();
+    }
+    std::cout << "Own MT: " << time3 / NUM_RUNS << "ms sum: " << sum3 << std::endl;
 
     return 0;
 }

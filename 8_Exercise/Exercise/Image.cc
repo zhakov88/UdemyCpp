@@ -4,16 +4,20 @@
 
 #include "Image.h"
 
-Image::Image() : m_width(0), m_height(0), m_matrix(GrayscaleMatrix(m_width, std::vector<uchar>(m_height, 0)))
+Image::Image()
+    : m_width(0), m_height(0), m_matrix(GrayscaleMatrix(m_width, std::vector<uchar>(m_height, 0)))
 {
     std::cout << "Created empty image object!" << std::endl;
 }
 
 Image::Image(const unsigned int width, const unsigned int height)
-    : m_width(width), m_height(height), m_matrix(GrayscaleMatrix(m_width, std::vector<uchar>(m_height, 0)))
+    : m_width(width), m_height(height),
+      m_matrix(GrayscaleMatrix(m_width, std::vector<uchar>(m_height, 0)))
 {
-    std::cout << "Created image object with shape=(" << m_width << "," << m_height << ")!" << std::endl;
-    std::cout << "Matrix size: (" << m_matrix.size() << "," << m_matrix[0].size() << ")" << std::endl;
+    std::cout << "Created image object with shape=(" << m_width << "," << m_height << ")!"
+              << std::endl;
+    std::cout << "Matrix size: (" << m_matrix.size() << "," << m_matrix[0].size() << ")"
+              << std::endl;
 }
 
 Image::~Image()
@@ -34,21 +38,42 @@ unsigned int Image::get_height() const
 // Exercise 1
 void Image::clear_image()
 {
+    m_matrix.clear();
+    m_height = 0;
+    m_width = 0;
 }
 
 // Exercise 2
 void Image::set_pixel(const unsigned int x, const unsigned int y, const uchar value)
 {
+    m_matrix[x][y] = value;
 }
 
 // Exercise 3
 void Image::resize_image(const unsigned int new_width, const unsigned int new_height)
 {
+    if (new_width != m_width)
+    {
+        m_matrix.resize(new_width);
+        m_width = new_width;
+    }
+    if (new_height != m_height)
+    {
+        for (auto &col : m_matrix)
+        {
+            col.resize(new_height);
+        }
+        m_height = new_height;
+    }
 }
 
 // Exercise 4
 void Image::fill_image(const uchar value)
 {
+    for (auto &col : m_matrix)
+    {
+        std::fill(col.begin(), col.end(), value);
+    }
 }
 
 // Exercise 5
@@ -58,6 +83,72 @@ void Image::draw_line(const unsigned int x1,
                       const unsigned int y2,
                       const uchar value)
 {
+    int length = 0;
+
+    if ((x1 < m_width) && (x2 < m_width) && (y1 < m_height) && (y2 < m_height) &&
+        ((x1 == x2) || (y1 == y2)))
+    {
+        std::cout << "Draw line!" << std::endl;
+        std::cout << x1 << " " << y1 << " " << x2 << " " << y2 << " " << std::endl;
+
+        // Draw vertical line
+        if (x1 == x2)
+        {
+            std::cout << "Same x!" << std::endl;
+
+            if (y1 < y2)
+            {
+                length = y2 - y1;
+                std::cout << "With length: " << length + 1 << std::endl;
+
+                for (int i = 0; i != length; ++i)
+                {
+                    set_pixel(x1, y1 + i, value);
+                }
+            }
+            else
+            {
+                length = y1 - y2;
+                std::cout << "With length: " << length + 1 << std::endl;
+
+                for (int i = 0; i != length; ++i)
+                {
+                    set_pixel(x1, y2 + i, value);
+                }
+            }
+        }
+        // Draw horizontal line
+        else if (y1 == y2)
+        {
+            std::cout << "Same y!" << std::endl;
+
+            if (x1 < x2)
+            {
+                length = x2 - x1;
+                std::cout << "With length: " << length + 1 << std::endl;
+
+                for (int i = 0; i != length; ++i)
+                {
+                    set_pixel(x1 + i, y1, value);
+                }
+            }
+            else
+            {
+                length = x1 - x2;
+                std::cout << "With length: " << length + 1 << std::endl;
+
+                for (int i = 0; i != length; ++i)
+                {
+                    set_pixel(x2 + i, y1, value);
+                }
+            }
+        }
+    }
+    else
+    {
+        std::cout << "Line Error" << std::endl;
+        std::cout << x1 << " " << y1 << " " << x2 << " " << y2 << " " << std::endl;
+    }
 }
 
 void Image::save_image(const char *file_name) const

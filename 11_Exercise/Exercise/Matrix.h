@@ -19,7 +19,9 @@ public:
     Matrix(std::size_t rows, std::size_t cols, const T &value);
 
     // Exercise 1: Copy Constructor
+    Matrix(const Matrix &other);
     // Exercise 2: Copy Assignment Operator
+    Matrix &operator=(const Matrix &other);
 
     Matrix operator+(const Matrix &rhs);
     Matrix &operator+=(const Matrix &rhs);
@@ -56,10 +58,23 @@ Matrix<T>::Matrix(std::size_t rows, std::size_t cols, const T &value)
 }
 
 // Copy Constructor
+template <typename T>
+Matrix<T>::Matrix(const Matrix &other)
+    : m_rows(other.m_rows), m_cols(other.m_cols), m_data(other.m_data)
+{
+}
 
 
 // Copy Assignment Operator
+template <typename T>
+Matrix<T> &Matrix<T>::operator=(const Matrix<T> &other)
+{
+    m_rows = other.m_rows;
+    m_cols = other.m_cols;
+    m_data = other.m_data;
 
+    return *this;
+}
 
 template <typename T>
 Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs)
@@ -83,7 +98,11 @@ Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &rhs)
 {
     for (std::size_t i = 0; i != m_rows; ++i)
     {
-        std::transform(m_data[i].begin(), m_data[i].end(), rhs.m_data[i].begin(), m_data[i].begin(), std::plus<T>());
+        std::transform(m_data[i].begin(),
+                       m_data[i].end(),
+                       rhs.m_data[i].begin(),
+                       m_data[i].begin(),
+                       std::plus<T>());
     }
 
     return *this;
@@ -111,7 +130,11 @@ Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &rhs)
 {
     for (std::size_t i = 0; i != m_rows; ++i)
     {
-        std::transform(m_data[i].begin(), m_data[i].end(), rhs.m_data[i].begin(), m_data[i].begin(), std::minus<T>());
+        std::transform(m_data[i].begin(),
+                       m_data[i].end(),
+                       rhs.m_data[i].begin(),
+                       m_data[i].begin(),
+                       std::minus<T>());
     }
 
     return *this;
@@ -124,9 +147,10 @@ Matrix<T> Matrix<T>::operator*(const T &scalar)
 
     for (std::size_t i = 0; i != m_rows; ++i)
     {
-        std::transform(m_data[i].begin(), m_data[i].end(), result.m_data[i].begin(), [scalar](const T val) -> T {
-            return val * scalar;
-        });
+        std::transform(m_data[i].begin(),
+                       m_data[i].end(),
+                       result.m_data[i].begin(),
+                       [scalar](const T val) -> T { return val * scalar; });
     }
 
     return result;
@@ -137,9 +161,10 @@ Matrix<T> &Matrix<T>::operator*=(const T &scalar)
 {
     for (std::size_t i = 0; i != m_rows; ++i)
     {
-        std::transform(m_data[i].begin(), m_data[i].end(), m_data[i].begin(), [scalar](const T val) -> T {
-            return val * scalar;
-        });
+        std::transform(m_data[i].begin(),
+                       m_data[i].end(),
+                       m_data[i].begin(),
+                       [scalar](const T val) -> T { return val * scalar; });
     }
 
     return *this;
@@ -152,9 +177,10 @@ Matrix<T> Matrix<T>::operator/(const T &scalar)
 
     for (std::size_t i = 0; i != m_rows; ++i)
     {
-        std::transform(m_data[i].begin(), m_data[i].end(), result.m_data[i].begin(), [scalar](const T val) -> T {
-            return val / scalar;
-        });
+        std::transform(m_data[i].begin(),
+                       m_data[i].end(),
+                       result.m_data[i].begin(),
+                       [scalar](const T val) -> T { return val / scalar; });
     }
 
     return result;
@@ -165,9 +191,10 @@ Matrix<T> &Matrix<T>::operator/=(const T &scalar)
 {
     for (std::size_t i = 0; i != m_rows; ++i)
     {
-        std::transform(m_data[i].begin(), m_data[i].end(), m_data[i].begin(), [scalar](const T val) -> T {
-            return val / scalar;
-        });
+        std::transform(m_data[i].begin(),
+                       m_data[i].end(),
+                       m_data[i].begin(),
+                       [scalar](const T val) -> T { return val / scalar; });
     }
 
     return *this;

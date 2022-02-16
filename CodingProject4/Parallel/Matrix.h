@@ -1,13 +1,12 @@
 #pragma once
 
+#include "omp.h"
 #include <algorithm>
 #include <exception>
 #include <functional>
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-
-#include "omp.h"
 
 namespace cppmath
 {
@@ -53,7 +52,7 @@ private:
     MatrixDataType m_data;
 
 public:
-    const std::uint32_t NUM_THREADS = 2;
+    const std::uint32_t NUM_THREADS = 4;
 };
 
 template <typename T>
@@ -75,6 +74,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
@@ -101,6 +101,7 @@ Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
@@ -125,10 +126,12 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
     }
+
 
     Matrix<T> result(m_rows, m_cols);
 
@@ -151,6 +154,7 @@ Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &rhs)
     {
         throw(std::invalid_argument("Number of rows are not equal!"));
     }
+
     if (m_cols != rhs.m_cols)
     {
         throw(std::invalid_argument("Number of cols are not equal!"));
@@ -205,7 +209,6 @@ Matrix<T> Matrix<T>::operator/(const T &scalar)
     {
         throw(std::overflow_error("You cannot divide by a scalar value of zero!"));
     }
-
     Matrix<T> result(m_rows, m_cols);
 
     for (std::size_t i = 0; i != m_rows; ++i)
@@ -222,6 +225,11 @@ Matrix<T> Matrix<T>::operator/(const T &scalar)
 template <typename T>
 Matrix<T> &Matrix<T>::operator/=(const T &scalar)
 {
+    if (scalar == 0)
+    {
+        throw(std::overflow_error("You cannot divide by a scalar value of zero!"));
+    }
+
     for (std::size_t i = 0; i != m_rows; ++i)
     {
         std::transform(m_data[i].begin(),
@@ -238,7 +246,7 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &rhs)
 {
     if (m_cols != rhs.m_rows)
     {
-        throw(std::invalid_argument("Number of cols are not equal!"));
+        throw(std::invalid_argument("Number of rows are not equal!"));
     }
 
     Matrix<T> result(m_rows, rhs.m_cols);
@@ -252,6 +260,7 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &rhs)
         parallel_dot(*this, rhs, result);
     }
 
+
     return result;
 }
 
@@ -260,7 +269,7 @@ Matrix<T> &Matrix<T>::operator*=(const Matrix<T> &rhs)
 {
     if (m_cols != rhs.m_rows)
     {
-        throw(std::invalid_argument("Number of cols are not equal!"));
+        throw(std::invalid_argument("Number of rows are not equal!"));
     }
 
     *this = (*this) * rhs;
@@ -273,6 +282,7 @@ void Matrix<T>::dot(const Matrix &matrixA, const Matrix &matrixB, Matrix &result
 {
     for (std::size_t i = 0; i != matrixA.m_rows; ++i)
     {
+
         for (std::size_t k = 0; k != matrixB.m_rows; ++k)
         {
             for (std::size_t j = 0; j != matrixB.m_cols; ++j)
@@ -294,6 +304,7 @@ void Matrix<T>::parallel_dot(const Matrix &matrixA, const Matrix &matrixB, Matri
 #pragma omp parallel for shared(result) private(i, j, k) num_threads(NUM_THREADS)
     for (i = 0; i != matrixA.m_rows; ++i)
     {
+
         for (k = 0; k != matrixB.m_rows; ++k)
         {
             for (j = 0; j != matrixB.m_cols; ++j)

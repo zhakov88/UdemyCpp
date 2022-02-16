@@ -7,23 +7,24 @@
 
 void print_vector(const std::vector<double> &vec)
 {
+
     for (const auto &val : vec)
     {
         std::cout << val << std::endl;
     }
-
     std::cout << std::endl;
 }
 
 double magnitude(std::vector<double> &vec)
 {
-    // 1.) Map: sqaure all values
-    std::transform(vec.begin(), vec.end(), vec.begin(), [](const double val) { return std::pow(val, 2.0); });
+    //1.) Square all values
+    std::transform(vec.begin(), vec.end(), vec.begin(), [](const double val) {
+        return std::pow(val, 2.0);
+    });
 
     // 2.) Reduce
     const double sum = std::accumulate(vec.begin(), vec.end(), 0.0);
     const double root = std::pow(sum, 0.5);
-
     return root;
 }
 
@@ -37,4 +38,4 @@ int main()
     std::cout << magnitude(my_vector) << std::endl;
 
     return 0;
-}
+};

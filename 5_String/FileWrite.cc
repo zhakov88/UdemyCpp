@@ -25,13 +25,13 @@ int main()
     std::string search_str = "eins";
     std::string replace_str = "one";
     auto idx = text.find(search_str);
+
     text.replace(idx, search_str.size(), replace_str);
 
     std::cout << text << std::endl;
 
     std::ofstream offile;
     offile.open("TextOutput.txt");
-
     if (offile.is_open())
     {
         offile << text;

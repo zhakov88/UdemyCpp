@@ -6,8 +6,12 @@ public:
     Matrix();
     Matrix(const double &A, const double &B, const double &C, const double &D);
 
-    void print_matrix() const;
+    Matrix operator+(const Matrix &rhs);
+    Matrix &operator+=(const Matrix &rhs);
+    Matrix operator-(const Matrix &rhs);
+    Matrix &operator-=(const Matrix &rhs);
 
+    void print_matrix() const;
     double get_A() const;
     double get_B() const;
     double get_C() const;

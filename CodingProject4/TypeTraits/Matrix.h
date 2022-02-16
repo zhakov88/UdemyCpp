@@ -15,7 +15,7 @@ template <typename T>
 class Matrix
 {
     static_assert(std::is_floating_point_v<T>,
-                  "An specilization of the matrix class has be of a floating point type!");
+                  "An specialization of the matrix class has to be of a floating point type!");
 
 public:
     using MatrixDataType = std::vector<std::vector<T>>;

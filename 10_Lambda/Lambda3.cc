@@ -6,13 +6,14 @@
 
 void print_vector(const std::vector<int> &vec)
 {
+
     for (const auto &val : vec)
     {
         std::cout << val << std::endl;
     }
-
     std::cout << std::endl;
 }
+
 
 int main()
 {
@@ -22,7 +23,6 @@ int main()
     print_vector(my_vector);
 
     // replace_if
-
     const int replace_value = 42;
     const int check_value = 2;
 
@@ -35,7 +35,6 @@ int main()
     print_vector(my_vector);
 
     // sort
-
     auto sorting = [](const int val1, const int val2) { return val1 > val2; };
 
     std::sort(my_vector.begin(), my_vector.end(), sorting);
@@ -43,12 +42,12 @@ int main()
     print_vector(my_vector);
 
     // sort: generic lambda
-
     auto sorting2 = [](const auto val1, const auto val2) { return val1 < val2; };
 
     std::sort(my_vector.begin(), my_vector.end(), sorting2);
 
     print_vector(my_vector);
 
+
     return 0;
-}
+};

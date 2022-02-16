@@ -4,9 +4,12 @@
 
 int main()
 {
-    Image my_image1(10, 10);
+    Image my_image(100, 400);
+    my_image.save_image("image.bmp");
 
-    Image my_image2;
+    std::cout << "Height: " << my_image.get_heigt() << std::endl;
+    my_image.set_height(200);
+    std::cout << "Height: " << my_image.get_heigt() << std::endl;
 
     return 0;
 }

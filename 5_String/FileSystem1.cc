@@ -5,10 +5,10 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    fs::path workspace_path = "C:/Users/Jan/Dropbox/_Coding/UdemyCpp";
+    fs::path workspace_path = "C:/Users/s5280339/Desktop/UdemyCpp/5_String/FileSystem1.cc";
     fs::path chapter_path;
     chapter_path = workspace_path;
-    chapter_path /= "5_STLString";
+    chapter_path /= "5_String";
     fs::path current_file_path = fs::current_path();
     current_file_path /= "FileSystem1.cc";
 
@@ -23,6 +23,8 @@ int main()
     std::cout << "extension: " << current_file_path.extension() << std::endl;
 
     std::cout << "exists: " << std::boolalpha << fs::exists(current_file_path) << std::endl;
-    std::cout << "is_regular_file: " << std::boolalpha << fs::is_regular_file(current_file_path) << std::endl;
-    std::cout << "is_directory: " << std::boolalpha << fs::is_directory(current_file_path) << std::endl;
+    std::cout << "is_regular_file: " << std::boolalpha << fs::is_regular_file(current_file_path)
+              << std::endl;
+    std::cout << "is_directory: " << std::boolalpha << fs::is_directory(current_file_path)
+              << std::endl;
 }

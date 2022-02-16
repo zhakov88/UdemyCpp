@@ -6,6 +6,7 @@
 
 using Position = std::pair<unsigned int, unsigned int>;
 using GameState = std::vector<std::string>;
+using Obsticles = std::vector<Position>;
 
 constexpr unsigned int LEN_X = 5;
 constexpr unsigned int LEN_Y = 5;
@@ -23,10 +24,22 @@ enum class ConsoleInput : int
 
 ConsoleInput map_user_input(char user_input);
 
-void print_game_state(Position player);
+GameState update_game_state(const Position &player, const Obsticles &obsticles);
+
+void print_game_state(const GameState &game_state);
 
 Position execute_move(Position player, ConsoleInput move);
 
 bool is_finished(Position player);
+
+bool is_dead(const Position &player, const Obsticles &obsticles);
+
+unsigned int random_unit(const unsigned int lower, const unsigned int upper);
+
+Position random_position(const unsigned int lower_x,
+                         const unsigned int upper_x,
+                         const unsigned int lower_y,
+                         const unsigned int upper_y);
+
 
 void game();

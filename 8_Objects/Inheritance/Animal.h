@@ -13,7 +13,7 @@ public:
 
     ~Animal()
     {
-        std::cout << "Animal Destructor!" << std::endl;
+        std::cout << "Animal Denstructor!" << std::endl;
     }
 
 private:
@@ -30,6 +30,6 @@ public:
 
     ~Dog()
     {
-        std::cout << "Dog Destructor!" << std::endl;
+        std::cout << "Dog Denstructor!" << std::endl;
     }
 };

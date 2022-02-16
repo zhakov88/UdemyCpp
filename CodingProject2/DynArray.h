@@ -6,7 +6,7 @@ template <typename T>
 class DynamicArray
 {
 public:
-    // Constructor/Destructor
+    // Constructors
     DynamicArray();
     DynamicArray(const T &value, const std::size_t length);
     ~DynamicArray();
@@ -30,22 +30,28 @@ private:
 
 /**
  * @brief Create a dynamic array object
+
  */
 template <typename T>
-DynamicArray<T>::DynamicArray() : m_length(0), m_capacity(1), m_data(new T[m_capacity])
+DynamicArray<T>::DynamicArray() : m_length(0), m_capacity(1), m_data(new T(m_capacity))
 {
 }
+
 
 /**
  * @brief Create a dynamic array object
  *
  * @param value The fill value for the array.
  * @param length The length of the array.
+ * @return DynamicArray
  */
 template <typename T>
 DynamicArray<T>::DynamicArray(const T &value, const std::size_t length)
-    : m_length(length), m_capacity(length > 0 ? length : 1), m_data(new T[m_capacity])
+    : m_length(length), m_capacity(length > 0 ? length : 1), m_data(new T(m_capacity))
+
 {
+    m_data = new double[length];
+
     for (std::size_t i = 0; i < length; i++)
     {
         m_data[i] = value;
@@ -54,6 +60,7 @@ DynamicArray<T>::DynamicArray(const T &value, const std::size_t length)
 
 /**
  * @brief Destroys a dynamic array object
+
  */
 template <typename T>
 DynamicArray<T>::~DynamicArray()
@@ -68,7 +75,7 @@ DynamicArray<T>::~DynamicArray()
 /**
  * @brief Push backs the *value* at the end of the array.
  *
- * @param dynmaic_array The dynamic array.
+ * @param  The dynamic array.
  * @param value The value to append to the array.
  */
 template <typename T>
@@ -87,15 +94,18 @@ void DynamicArray<T>::push_back(const T &value)
         }
 
         delete[] m_data;
+
         m_data = temp;
     }
-
     m_data[m_length] = value;
     m_length++;
 }
 
 /**
  * @brief Pop backs the value at the end of the vector.
+ *
+ * @param input_array The dynamic array.
+ * @param size The size of the array.
  */
 template <typename T>
 void DynamicArray<T>::pop_back()
@@ -107,7 +117,6 @@ void DynamicArray<T>::pop_back()
         if (m_length < (m_capacity / 2))
         {
             m_capacity /= 2;
-
             T *temp = nullptr;
             temp = new T[m_capacity];
 
@@ -133,6 +142,7 @@ const T &DynamicArray<T>::operator[](const std::size_t index) const
 {
     return m_data[index];
 }
+
 
 template <typename T>
 std::size_t DynamicArray<T>::get_length() const

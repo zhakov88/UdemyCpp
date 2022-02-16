@@ -13,17 +13,18 @@ int main()
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << e.what() << "\n";
     }
 
     try
     {
-        cppmath::Matrix<double> m3 = m1 / 0;
+        cppmath::Matrix<double> m4 = m1 / 0;
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << e.what() << "\n";
     }
+
 
     return 0;
 }
